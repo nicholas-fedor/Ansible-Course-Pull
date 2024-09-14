@@ -1,0 +1,17 @@
+---
+- name: Install Apache webserver
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Update all packages
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: true
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install Apache2
+      ansible.builtin.apt:
+        name:
+          - apache2
+      when: ansible_distribution == "Ubuntu"
